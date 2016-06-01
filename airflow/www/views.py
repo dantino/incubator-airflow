@@ -838,7 +838,7 @@ class Airflow(BaseView):
             host = ti.hostname
             log_loaded = False
 
-            if socket.getfqdn() == host:
+            if conf.get('celery', 'FORCE_LOCAL_LOG', False) or socket.getfqdn() == host:
                 try:
                     f = open(loc)
                     log += "".join(f.readlines())
